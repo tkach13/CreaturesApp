@@ -10,14 +10,21 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.benten.creaturesapp.databinding.FragmentAddCreatureBinding
 import com.benten.creaturesapp.model.AttributeStore
 import com.benten.creaturesapp.model.AttributeValue
+import com.benten.creaturesapp.model.CreatureAttributes
 import com.benten.creaturesapp.views.avatars.AvatarChoserBottomSheet
 
 class AddCreatureFragment : Fragment(), AvatarChooser {
     private var _binding: FragmentAddCreatureBinding? = null
     private val binding get() = _binding!!
+
+    private var chosenAvatar = -1
+
+    private val viewModel by viewModels<AddCreatureViewModel>()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,6 +41,20 @@ class AddCreatureFragment : Fragment(), AvatarChooser {
         binding.avatarImageView.setOnClickListener {
             AvatarChoserBottomSheet.newInstance()
                 .show(childFragmentManager, AvatarChoserBottomSheet.AVATAR_BOTTTOM_SHEET_KEY)
+        }
+        viewModel.getSavedLiveData().observe(viewLifecycleOwner) {
+            parentFragmentManager.popBackStack()
+        }
+        binding.saveButton.setOnClickListener {
+            viewModel.onSaveClicked(
+                CreatureAttributes(
+                    intelligence = (binding.intelligence.selectedItem as AttributeValue).value,
+                    strength = (binding.strength.selectedItem as AttributeValue).value,
+                    endurance = (binding.endurance.selectedItem as AttributeValue).value,
+                ),
+                binding.nameEditText.text.toString(),
+                chosenAvatar
+            )
         }
     }
 
@@ -60,11 +81,7 @@ class AddCreatureFragment : Fragment(), AvatarChooser {
                 position: Int,
                 id: Long
             ) {
-                Toast.makeText(
-                    requireContext(),
-                    AttributeStore.INTELLIGENCE[position].name,
-                    Toast.LENGTH_LONG
-                ).show()
+
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -102,6 +119,7 @@ class AddCreatureFragment : Fragment(), AvatarChooser {
 
     override fun chooseAvatar(avatar: Int) {
         binding.avatarImageView.setImageResource(avatar)
+        chosenAvatar = avatar
         binding.tapLabel.isVisible = false
     }
 }

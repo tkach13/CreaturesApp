@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.benten.creaturesapp.R
 import com.benten.creaturesapp.databinding.FragmentAllCreaturesBinding
@@ -17,6 +18,8 @@ class AllCreaturesFragment : Fragment() {
     private var _binding: FragmentAllCreaturesBinding? = null
     private val binding get() = _binding!!
     private lateinit var creaturesAdapter: AllCreaturesAdapter
+
+    private val viewModel by viewModels<AllCreaturesViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,12 +37,25 @@ class AllCreaturesFragment : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.rvCreatures.adapter = creaturesAdapter
 
+        viewModel.getAllCreaturesLiveData().observe(viewLifecycleOwner) {
+            creaturesAdapter.updateAll(it)
+        }
+        viewModel.getAddClickedLiveData().observe(viewLifecycleOwner) {
+            if (it){
+                goToAddCreature()
+            }
+        }
+
         binding.fabAddButton.setOnClickListener {
-         parentFragmentManager.beginTransaction().apply {
-             replace(R.id.flContent,AddCreatureFragment())
-             addToBackStack(AddCreatureFragment::class.java.name)
-             commit()
-         }
+           viewModel.onAddCreatureClicked()
+        }
+    }
+
+    private fun goToAddCreature() {
+        parentFragmentManager.beginTransaction().apply {
+            replace(R.id.flContent, AddCreatureFragment())
+            addToBackStack(AddCreatureFragment::class.java.name)
+            commit()
         }
     }
 
