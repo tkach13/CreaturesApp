@@ -8,17 +8,73 @@
         android:id="@+id/rvCreatures"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/chip1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/startGuide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/endGuide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <EditText
+        android:id="@+id/etSearch"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_search"
+        android:padding="5dp"
+        android:drawableEnd="@drawable/ic_baseline_search_24"
+        android:hint="Search characters by name"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@id/endGuide"
+        app:layout_constraintStart_toStartOf="@id/startGuide"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.chip.Chip
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.Chip.Choice"
+        app:layout_constraintTop_toBottomOf="@id/etSearch"
+        android:text="0-50"
+        app:layout_constraintStart_toStartOf="@id/startGuide"
+        android:id="@+id/chip1"/>
+    <com.google.android.material.chip.Chip
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.Chip.Choice"
+        app:layout_constraintTop_toBottomOf="@id/etSearch"
+        android:text="50-100"
+        app:layout_constraintStart_toEndOf="@id/chip1"
+        android:layout_marginStart="10dp"
+        android:id="@+id/chip2"/>
+    <com.google.android.material.chip.Chip
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.Chip.Choice"
+        app:layout_constraintTop_toBottomOf="@id/etSearch"
+        android:text="100-150"
+        app:layout_constraintStart_toEndOf="@id/chip2"
+        android:layout_marginStart="10dp"
+        android:id="@+id/chip3"/>
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        android:src="@drawable/ic_baseline_add_24"/>
+        android:src="@drawable/ic_baseline_add_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
