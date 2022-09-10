@@ -1,16 +1,19 @@
 package com.benten.creaturesapp.views.allCreatures
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.benten.creaturesapp.model.Creature
-import com.benten.creaturesapp.model.room.CreaturesRepositoryImpl
+import com.benten.creaturesapp.di.DataModule
+import com.benten.creaturesapp.model.CreaturesRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AllCreaturesViewModel : ViewModel() {
-    private val creaturesRepo = CreaturesRepositoryImpl()
+@HiltViewModel
+class AllCreaturesViewModel @Inject constructor(@DataModule.RealRepo private val creaturesRepository: CreaturesRepository) :
+    ViewModel() {
+
 
     private val _addClicked = MutableSharedFlow<Boolean>()
 
@@ -21,7 +24,7 @@ class AllCreaturesViewModel : ViewModel() {
 
     init {
         viewModelScope.launch {
-            creaturesRepo.getAllCreatures()
+            creaturesRepository.getAllCreatures()
                 .catch { exception: Throwable ->
                     _uiState.value = AllCreaturesState.Error(exception)
                 }
@@ -35,7 +38,7 @@ class AllCreaturesViewModel : ViewModel() {
     fun onSearchRequested(query: String) {
 
         viewModelScope.launch {
-            creaturesRepo.searchCreatures(query)
+            creaturesRepository.searchCreatures(query)
                 .collect {
                     _uiState.value = AllCreaturesState.Success(it)
                 }

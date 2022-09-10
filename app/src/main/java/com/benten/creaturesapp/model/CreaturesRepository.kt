@@ -1,6 +1,5 @@
 package com.benten.creaturesapp.model
 
-import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 
 interface CreaturesRepository {

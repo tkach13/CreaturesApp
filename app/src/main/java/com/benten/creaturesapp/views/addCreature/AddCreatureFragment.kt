@@ -16,7 +16,9 @@ import com.benten.creaturesapp.model.AttributeStore
 import com.benten.creaturesapp.model.AttributeValue
 import com.benten.creaturesapp.model.CreatureAttributes
 import com.benten.creaturesapp.views.avatars.AvatarChoserBottomSheet
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AddCreatureFragment : Fragment(), AvatarChooser {
     private var _binding: FragmentAddCreatureBinding? = null
     private val binding get() = _binding!!
@@ -65,11 +67,11 @@ class AddCreatureFragment : Fragment(), AvatarChooser {
         )
         binding.strength.adapter = ArrayAdapter<AttributeValue>(
             requireContext(),
-            android.R.layout.simple_spinner_dropdown_item, AttributeStore.STRENGTH
+            R.layout.simple_spinner_dropdown_item, AttributeStore.STRENGTH
         )
         binding.endurance.adapter = ArrayAdapter<AttributeValue>(
             requireContext(),
-            android.R.layout.simple_spinner_dropdown_item, AttributeStore.ENDURANCE
+            R.layout.simple_spinner_dropdown_item, AttributeStore.ENDURANCE
         )
     }
 

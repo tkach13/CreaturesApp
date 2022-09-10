@@ -1,23 +1,23 @@
 package com.benten.creaturesapp.model.room
 
-import androidx.lifecycle.LiveData
-import com.benten.creaturesapp.app.CreaturesApp
 import com.benten.creaturesapp.model.Creature
 import com.benten.creaturesapp.model.CreaturesRepository
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class CreaturesRepositoryImpl : CreaturesRepository {
+class CreaturesRepositoryImpl @Inject constructor(private val creaturesDao: CreaturesDao) :
+    CreaturesRepository {
 
     override fun insertCreature(creature: Creature) {
-        CreaturesApp.database.creaturesDao().insertCreature(creature)
+        creaturesDao.insertCreature(creature)
     }
 
     override fun getAllCreatures(): Flow<List<Creature>> {
-        return CreaturesApp.database.creaturesDao().getAllCreatures()
+        return creaturesDao.getAllCreatures()
     }
 
-    override fun searchCreatures(query:String): Flow<List<Creature>> {
-        return CreaturesApp.database.creaturesDao().searchCreatures(query)
+    override fun searchCreatures(query: String): Flow<List<Creature>> {
+        return creaturesDao.searchCreatures(query)
     }
 
 }

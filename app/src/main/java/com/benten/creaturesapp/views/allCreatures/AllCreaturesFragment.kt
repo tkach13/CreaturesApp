@@ -20,8 +20,10 @@ import com.benten.creaturesapp.model.Creature
 import com.benten.creaturesapp.model.CreatureAttributes
 import com.benten.creaturesapp.views.addCreature.AddCreatureFragment
 import com.benten.creaturesapp.views.allCreatures.adapters.AllCreaturesAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class AllCreaturesFragment : Fragment() {
     private var _binding: FragmentAllCreaturesBinding? = null
     private val binding get() = _binding!!
@@ -39,12 +41,14 @@ class AllCreaturesFragment : Fragment() {
         return binding.root
     }
 
-    @SuppressLint("UnsafeRepeatOnLifecycleDetector")
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         creaturesAdapter = AllCreaturesAdapter()
         binding.rvCreatures.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+
         binding.rvCreatures.adapter = creaturesAdapter
 
         lifecycleScope.launch {
