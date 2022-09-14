@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AllCreaturesViewModel @Inject constructor(@DataModule.RealRepo private val creaturesRepository: CreaturesRepository) :
+class AllCreaturesViewModel @Inject constructor( private val creaturesRepository: CreaturesRepository, ) :
     ViewModel() {
 
 

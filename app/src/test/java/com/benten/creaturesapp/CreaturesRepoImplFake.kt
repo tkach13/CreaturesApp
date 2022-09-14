@@ -1,6 +1,8 @@
-package com.benten.creaturesapp.model
+package com.benten.creaturesapp
 
-import com.benten.creaturesapp.R
+import com.benten.creaturesapp.model.Creature
+import com.benten.creaturesapp.model.CreatureAttributes
+import com.benten.creaturesapp.model.CreaturesRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 

@@ -15,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AddCreatureViewModel @Inject constructor(
     private val creaturesGenerator: CreatureGenerator,
-    @DataModule.RealRepo private val creaturesRepo: CreaturesRepository
+     private val creaturesRepo: CreaturesRepository
 ) :
     ViewModel() {
 
