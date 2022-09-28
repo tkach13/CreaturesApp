@@ -65,6 +65,25 @@
         android:layout_marginStart="10dp"
         android:id="@+id/chip3"/>
 
+    <com.benten.creaturesapp.customViews.TriangleView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintStart_toEndOf="@id/chip3"
+        android:layout_marginStart="10dp"
+        app:facingUp="true"
+        app:layout_constraintTop_toBottomOf="@id/etSearch"
+        android:id="@+id/upperSort"/>
+
+    <com.benten.creaturesapp.customViews.TriangleView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintStart_toEndOf="@id/chip3"
+        android:layout_marginStart="10dp"
+        app:facingUp="false"
+        app:layout_constraintTop_toBottomOf="@id/upperSort"
+        android:layout_marginTop="5dp"
+        android:id="@+id/downSort"/>
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddButton"

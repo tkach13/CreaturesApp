@@ -51,6 +51,19 @@ class AllCreaturesFragment : Fragment() {
 
         binding.rvCreatures.adapter = creaturesAdapter
 
+        binding.upperSort.setOnClickListener {
+            if (!binding.upperSort.isActived) {
+                binding.upperSort.setActive(true)
+            }
+            binding.downSort.setActive(false)
+
+        }
+        binding.downSort.setOnClickListener {
+            if (!binding.downSort.isActived) {
+                binding.downSort.setActive(true)
+            }
+            binding.upperSort.setActive(false)
+        }
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { uiState ->
