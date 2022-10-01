@@ -1,12 +1,16 @@
 package com.benten.creaturesapp.views.login
 
+import android.animation.Animator
 import android.animation.ValueAnimator
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.AccelerateInterpolator
 import android.view.animation.BounceInterpolator
+import android.view.animation.DecelerateInterpolator
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
@@ -38,17 +42,55 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.btnLogin.setOnClickListener {
-            viewModel.onLoginIntent()
+            animateLogin()
         }
-        collectFlow {
-            viewModel.getAllCreaturesSharedFlow().collectLatest {
-                if (it) {
-                    goToAllCreatures()
-                }
-            }
-        }
+
+//        collectFlow {
+//            viewModel.getAllCreaturesSharedFlow().collectLatest {
+//                if (it) {
+//                    goToAllCreatures()
+//                }
+//            }
+//        }
     }
 
+    private fun animateLogin() {
+        val alphaAnimator = ValueAnimator.ofFloat(0f, 1f).apply {
+            duration = 2000
+            interpolator = BounceInterpolator()
+        }
+        val buttonWidth = binding.btnLogin.width
+        val buttonHeight = binding.btnLogin.height
+
+        binding.spinner.isVisible = true
+        binding.spinner.playAnimation()
+
+        alphaAnimator.addUpdateListener {
+            val updatedValue = it.animatedValue as Float
+            binding.btnLogin.alpha = 1 - updatedValue
+            binding.btnLogin.updateLayoutParams {
+                this.width = (buttonWidth * (1 - updatedValue)).toInt()
+                this.height = (buttonHeight * (1 - updatedValue)).toInt()
+            }
+        }
+        alphaAnimator.addListener(object :Animator.AnimatorListener {
+            override fun onAnimationStart(p0: Animator?) {
+            }
+
+            override fun onAnimationEnd(p0: Animator?) {
+                goToAllCreatures()
+            }
+
+            override fun onAnimationCancel(p0: Animator?) {
+            }
+
+            override fun onAnimationRepeat(p0: Animator?) {
+            }
+
+
+        })
+        alphaAnimator.start()
+    }
 
 
     private fun goToAllCreatures() {

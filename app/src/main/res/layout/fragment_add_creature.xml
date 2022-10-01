@@ -21,6 +21,7 @@
     <ImageView
         android:id="@+id/avatarImageView"
         android:layout_width="160dp"
+        android:transitionName="@string/creature_transition_name"
         android:layout_height="160dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -46,7 +46,9 @@ class AllCreaturesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         creaturesAdapter = AllCreaturesAdapter()
 
-
+        binding.ivSettings.setOnClickListener {
+            setupSettingsAnimation()
+        }
         postponeEnterTransition()
 
         binding.rvCreatures.apply {
@@ -116,6 +118,11 @@ class AllCreaturesFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun setupSettingsAnimation() {
+        val animatable2 = binding.ivSettings.drawable as? Animatable2
+        animatable2?.start()
     }
 
     private fun goToAddCreature(addCreatureDataModel: AddCreatureDataModel?) {
