@@ -15,13 +15,5 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        if (supportFragmentManager.findFragmentById(R.id.flContent) == null) {
-            supportFragmentManager.beginTransaction().apply {
-                replace(R.id.flContent, AllCreaturesFragment())
-                addToBackStack(AllCreaturesFragment::class.java.name)
-                commit()
-            }
-        }
-
     }
 }

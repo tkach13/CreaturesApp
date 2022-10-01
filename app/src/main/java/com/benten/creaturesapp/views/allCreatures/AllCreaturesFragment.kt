@@ -1,24 +1,24 @@
 package com.benten.creaturesapp.views.allCreatures
 
-import android.annotation.SuppressLint
+import android.graphics.drawable.Animatable2
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.util.Pair as UtilPair
 import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.benten.creaturesapp.R
 import com.benten.creaturesapp.databinding.FragmentAllCreaturesBinding
-import com.benten.creaturesapp.model.Creature
-import com.benten.creaturesapp.model.CreatureAttributes
-import com.benten.creaturesapp.views.addCreature.AddCreatureFragment
+
+import com.benten.creaturesapp.views.addCreature.data.AddCreatureDataModel
 import com.benten.creaturesapp.views.allCreatures.adapters.AllCreaturesAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -45,11 +45,21 @@ class AllCreaturesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         creaturesAdapter = AllCreaturesAdapter()
-        binding.rvCreatures.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
 
-        binding.rvCreatures.adapter = creaturesAdapter
+        postponeEnterTransition()
+
+        binding.rvCreatures.apply {
+            binding.rvCreatures.layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            adapter = creaturesAdapter
+
+        }
+
+
+        val animatable2 = binding.ivSettings.drawable as? Animatable2
+
+        animatable2?.start()
 
         binding.upperSort.setOnClickListener {
             if (!binding.upperSort.isActived) {
@@ -64,12 +74,27 @@ class AllCreaturesFragment : Fragment() {
             }
             binding.upperSort.setActive(false)
         }
+        creaturesAdapter.setOnClickListener {
+            findNavController().navigate(
+                AllCreaturesFragmentDirections.actionAllCreaturesFragmentToAddCreatureFragment(
+                    it
+                ),
+            )
+        }
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { uiState ->
                     when (uiState) {
                         is AllCreaturesState.Error -> TODO()
-                        is AllCreaturesState.Success -> creaturesAdapter.updateAll(uiState.data)
+                        is AllCreaturesState.Success -> {
+                            creaturesAdapter.updateAll(uiState.data)
+                            binding.rvCreatures.viewTreeObserver.addOnPreDrawListener {
+                                startPostponedEnterTransition()
+                                true
+                            }
+
+                        }
+
                     }
 
                 }
@@ -86,19 +111,19 @@ class AllCreaturesFragment : Fragment() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.addClikedSharedFlow.collect {
                     if (it) {
-                        goToAddCreature()
+                        goToAddCreature(null)
                     }
                 }
             }
         }
     }
 
-    private fun goToAddCreature() {
-        parentFragmentManager.beginTransaction().apply {
-            replace(R.id.flContent, AddCreatureFragment())
-            addToBackStack(AddCreatureFragment::class.java.name)
-            commit()
-        }
+    private fun goToAddCreature(addCreatureDataModel: AddCreatureDataModel?) {
+        findNavController().navigate(
+            AllCreaturesFragmentDirections.actionAllCreaturesFragmentToAddCreatureFragment(
+                addCreatureDataModel
+            )
+        )
     }
 
     override fun onDestroyView() {
