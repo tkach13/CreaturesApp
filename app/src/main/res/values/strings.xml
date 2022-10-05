@@ -15,4 +15,7 @@
     <string name="add_creature">Add Creature</string>
     <string name="log_in">log in</string>
     <string name="creature_transition_name">creature_transition</string>
+    <string name="enter_password">enter password</string>
+    <string name="enter_username">enter username</string>
+    <string name="sign_up">Sign up</string>
 </resources>

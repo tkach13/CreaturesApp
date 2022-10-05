@@ -56,7 +56,7 @@ class AllCreaturesAdapter : RecyclerView.Adapter<AllCreaturesAdapter.AllCreature
 
                     AddCreatureDataModel(
                         creature.drawable,
-                        creature.name,
+                        creature.name!!,
                         creature.hitPoints
                     )
                 )

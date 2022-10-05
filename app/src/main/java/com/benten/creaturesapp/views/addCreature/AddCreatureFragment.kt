@@ -50,15 +50,8 @@ class AddCreatureFragment : Fragment(), AvatarChooser {
         configureSpinnerAdapters()
         configureSpinnerListeners()
         binding.avatarImageView.setOnClickListener {
-
-            val extras =
-                FragmentNavigatorExtras(binding.avatarImageView to getString(com.benten.creaturesapp.R.string.creature_transition_name))
-            findNavController().navigate(
-                AddCreatureFragmentDirections.actionAddCreatureFragmentToCreatureDetailsFragment(
-                    args?.image ?: -1
-                ),
-                extras
-            )
+            AvatarChoserBottomSheet.newInstance()
+                .show(childFragmentManager, AvatarChoserBottomSheet.AVATAR_BOTTTOM_SHEET_KEY)
         }
         viewModel.getSavedLiveData().observe(viewLifecycleOwner) {
             findNavController().popBackStack()

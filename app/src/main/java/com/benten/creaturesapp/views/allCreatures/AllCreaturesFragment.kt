@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -96,28 +97,17 @@ class AllCreaturesFragment : Fragment() {
                             }
 
                         }
-
                     }
-
                 }
             }
         }
         binding.etSearch.doAfterTextChanged {
-            Log.d("Tkach13", it.toString())
             viewModel.onSearchRequested(it.toString())
         }
         binding.fabAddButton.setOnClickListener {
-            viewModel.onPlusClicked()
+            goToAddCreature(null)
         }
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.addClikedSharedFlow.collect {
-                    if (it) {
-                        goToAddCreature(null)
-                    }
-                }
-            }
-        }
+
     }
 
     private fun setupSettingsAnimation() {

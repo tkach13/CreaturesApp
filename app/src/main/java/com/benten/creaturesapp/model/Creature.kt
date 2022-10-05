@@ -4,12 +4,9 @@ import androidx.annotation.NonNull
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "creatures")
 data class Creature(
     val attributes: CreatureAttributes = CreatureAttributes(),
     val hitPoints: Int = 0,
-    @PrimaryKey
-    @NonNull
-    val name: String,
+    val name: String? = null,
     val drawable: Int = 0
 )

@@ -15,6 +15,9 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_loginFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
     </fragment>
     <fragment
         android:id="@+id/allCreaturesFragment"
@@ -54,5 +57,13 @@
         <argument
             android:name="creatureImage"
             app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.benten.creaturesapp.views.signUp.SignUpFragment"
+        android:label="SignUpFragment" >
+        <action
+            android:id="@+id/action_signUpFragment_to_allCreaturesFragment"
+            app:destination="@id/allCreaturesFragment" />
     </fragment>
 </navigation>
