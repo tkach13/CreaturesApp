@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SignUpViewModel @Inject constructor() :
+class SignUpViewModel @Inject constructor(private val userRepository: UserRepository) :
     ViewModel() {
 
     private val signUpEventFlow = MutableSharedFlow<Boolean>()
@@ -21,9 +21,17 @@ class SignUpViewModel @Inject constructor() :
         return signUpEventFlow
     }
 
-    fun onSignup(string: String, toString: String) {
-
-
+    fun onSignup(email: String, password: String, fullName: String) {
+        userRepository.createUser(User(email, password)) { result ->
+            if (result) {
+                val userId = userRepository.getUser()?.uid
+                userRepository.saveUser(User(eMail = email, userid = userId, fullName = fullName)) {
+                }
+            }
+            viewModelScope.launch {
+                signUpEventFlow.emit(result)
+            }
+        }
     }
 
 }

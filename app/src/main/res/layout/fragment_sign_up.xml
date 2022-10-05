@@ -34,10 +34,22 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/etPassword"
-        app:layout_constraintBottom_toTopOf="@id/btnLogin"
+        app:layout_constraintBottom_toTopOf="@id/etRepeatPassword"
         app:layout_constraintStart_toStartOf="@id/startGuide"
         app:layout_constraintEnd_toEndOf="@id/endGuide"
+        android:inputType="textPassword"
         android:hint="@string/enter_password"
+        android:layout_marginBottom="10dp"/>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/etRepeatPassword"
+        app:layout_constraintBottom_toTopOf="@id/btnSignup"
+        app:layout_constraintStart_toStartOf="@id/startGuide"
+        app:layout_constraintEnd_toEndOf="@id/endGuide"
+        android:inputType="textPassword"
+        android:hint="@string/repeat_password"
         android:layout_marginBottom="10dp"/>
     <androidx.appcompat.widget.AppCompatEditText
         android:layout_width="0dp"
@@ -47,6 +59,16 @@
         app:layout_constraintStart_toStartOf="@id/startGuide"
         app:layout_constraintEnd_toEndOf="@id/endGuide"
         android:hint="@string/enter_username"
+        android:layout_marginBottom="10dp"/>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/etName"
+        app:layout_constraintBottom_toTopOf="@id/etUserName"
+        app:layout_constraintStart_toStartOf="@id/startGuide"
+        app:layout_constraintEnd_toEndOf="@id/endGuide"
+        android:hint="@string/enter_your_name"
         android:layout_marginBottom="10dp"/>
 
 
@@ -65,7 +87,7 @@
         app:lottie_rawRes="@raw/loading_spinner" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnLogin"
+        android:id="@+id/btnSignup"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/sign_up"

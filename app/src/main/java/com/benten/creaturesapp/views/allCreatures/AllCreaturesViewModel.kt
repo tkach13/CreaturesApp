@@ -14,6 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AllCreaturesViewModel @Inject constructor(
     private val creaturesRepository: CreaturesRepository,
+    private val userRepository: UserRepository
 ) :
     ViewModel() {
 
@@ -26,7 +27,12 @@ class AllCreaturesViewModel @Inject constructor(
     val uiState: StateFlow<AllCreaturesState> = _uiState
 
     init {
+        creaturesRepository.getAllCreatures(userRepository.getUser()?.uid ?: "") { creatures ->
+            viewModelScope.launch {
+                _uiState.emit(AllCreaturesState.Success(creatures))
+            }
 
+        }
     }
 
 

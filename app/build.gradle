@@ -5,6 +5,7 @@ plugins {
     id 'dagger.hilt.android.plugin'
     id 'androidx.navigation.safeargs'
     id 'kotlin-parcelize'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -82,6 +83,16 @@ dependencies {
 
     def lottie_version = "5.2.0"
     implementation "com.airbnb.android:lottie:$lottie_version"
+
+
+    implementation platform('com.google.firebase:firebase-bom:30.4.1')
+
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+
+    implementation 'com.google.firebase:firebase-auth-ktx'
+
+
+    implementation 'com.google.firebase:firebase-database-ktx'
 
 
 

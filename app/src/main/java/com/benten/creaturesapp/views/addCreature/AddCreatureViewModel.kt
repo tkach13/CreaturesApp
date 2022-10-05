@@ -11,6 +11,8 @@ import javax.inject.Inject
 @HiltViewModel
 class AddCreatureViewModel @Inject constructor(
     private val creaturesGenerator: CreatureGenerator,
+    private val creaturesRepository: CreaturesRepository ,
+    private val userRepository: UserRepository
 ) :
     ViewModel() {
 
@@ -23,10 +25,16 @@ class AddCreatureViewModel @Inject constructor(
 
     fun onSaveClicked(creatureAttributes: CreatureAttributes, name: String, chosenAvatar: Int) {
         val creature = creaturesGenerator.generateCreature(creatureAttributes, name, chosenAvatar)
-        savedLiveData.postValue(true)
+
+        val userId  = userRepository.getUser()?.uid?:""
+        creaturesRepository.insertCreature(creature,userId,){
+            savedLiveData.postValue(it)
+        }
+
     }
 
     fun onAttributeSelected(attributeValue: AttributeValue) {
+
     }
 
 

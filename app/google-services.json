@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "625395330225",
+    "project_id": "creatures-app-148a3",
+    "storage_bucket": "creatures-app-148a3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:625395330225:android:5fa7321a5cd0d582bf4690",
+        "android_client_info": {
+          "package_name": "com.benten.creaturesappp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "625395330225-74snftg55bbtg6qfb5nvbjlrlgnf2lc6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUtXlbZmyxfWaDk50mWhZKghinA20QPcI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "625395330225-74snftg55bbtg6qfb5nvbjlrlgnf2lc6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

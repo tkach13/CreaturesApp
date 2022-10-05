@@ -3,6 +3,7 @@ package com.benten.creaturesapp.di
 
 import com.benten.creaturesapp.model.CreaturesRepository
 import com.benten.creaturesapp.model.room.CreaturesRepositoryImpl
+import com.google.firebase.database.FirebaseDatabase
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -23,9 +24,8 @@ abstract class DataModule {
     companion object {
 
         @Provides
-        fun provideCreaturesRepoImpl(
-        ): CreaturesRepositoryImpl {
-            return CreaturesRepositoryImpl()
+        fun provideCreaturesRepoImpl(firebaseDatabase: FirebaseDatabase): CreaturesRepositoryImpl {
+            return CreaturesRepositoryImpl(firebaseDatabase)
         }
 
     }

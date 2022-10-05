@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.benten.creaturesapp.databinding.FragmentSignUpBinding
 import com.benten.creaturesapp.extensions.collectFlow
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,12 +33,23 @@ class SignUpFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         collectFlow {
+            viewModel.getSignUpEventFlow().collectLatest {
+                if (it) {
+                    findNavController().popBackStack()
+                    Toast.makeText(requireContext(), "Successfully signed up", Toast.LENGTH_LONG)
+                        .show()
+                } else {
+                    Toast.makeText(requireContext(), "Error while signing up", Toast.LENGTH_LONG)
+                        .show()
 
+                }
+            }
         }
-        binding.btnLogin.setOnClickListener {
+        binding.btnSignup.setOnClickListener {
             viewModel.onSignup(
                 binding.etUserName.text.toString(),
-                binding.etPassword.text.toString()
+                binding.etPassword.text.toString(),
+                binding.etName.text.toString()
             )
         }
     }

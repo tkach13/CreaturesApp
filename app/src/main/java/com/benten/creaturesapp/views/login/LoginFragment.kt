@@ -45,6 +45,8 @@ class LoginFragment : Fragment() {
             viewModel.getAllCreaturesSharedFlow().collectLatest {
                 if (it) {
                     goToAllCreatures()
+                } else {
+                    binding.etPassword.setError("User or password is incorrect")
                 }
             }
         }
