@@ -7,24 +7,12 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
 class CreaturesRepoImplFake : CreaturesRepository {
-    override fun insertCreature(creature: Creature) {
-
+    override fun insertCreature(creature: Creature, userId: String, onResult: (Boolean) -> Unit) {
+        TODO("Not yet implemented")
     }
 
-    override fun getAllCreatures(): Flow<List<Creature>> {
-        return flowOf(
-            listOf(
-                Creature(
-                    CreatureAttributes(8, 4, 2),
-                    89,
-                    "Merabi",
-                    R.drawable.creature_duck_yellow_1
-                )
-            )
-        )
+    override fun getAllCreatures(userId: String, onResult: (List<Creature>) -> Unit) {
+        TODO("Not yet implemented")
     }
 
-    override fun searchCreatures(query: String): Flow<List<Creature>> {
-        return flowOf(emptyList())
-    }
 }
