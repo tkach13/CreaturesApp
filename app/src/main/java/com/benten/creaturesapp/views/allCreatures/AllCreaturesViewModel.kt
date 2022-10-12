@@ -13,8 +13,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AllCreaturesViewModel @Inject constructor(
-      creaturesRepository: CreaturesRepository,
-      userRepository: UserRepository
+    creaturesRepository: CreaturesRepository,
+    userRepository: UserRepository
 ) :
     ViewModel() {
 
