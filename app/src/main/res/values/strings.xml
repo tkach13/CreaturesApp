@@ -22,5 +22,6 @@
     <string name="enter_your_name">Enter your name</string>
     <string name="app_name_free">CreaturesApp free</string>
     <string name="app_name_paid">CreaturesApp paid</string>
+    <string name="what_do_you_want_to_search">What do you want to search</string>
 
 </resources>
