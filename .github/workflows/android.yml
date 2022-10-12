@@ -24,3 +24,7 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew assembleFreeDebug
+    - name: Runn unit tests
+      run: ./gradlew testFreeDebugUnitTest
+    - name: check detekt rules
+      run: ./gradlew detektAll
