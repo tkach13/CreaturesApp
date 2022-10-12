@@ -18,8 +18,66 @@ buildscript {
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
         classpath 'com.google.dagger:hilt-android-gradle-plugin:2.39.1'
         classpath 'com.google.gms:google-services:4.3.13'
+        classpath "io.gitlab.arturbosch.detekt:detekt-formatting:1.20.0"
+
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+    }
+}
+plugins {
+    id("io.gitlab.arturbosch.detekt").version("1.20.0")
+}
+
+dependencies {
+    detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:1.20.0"
+}
+
+tasks {
+    // Configuring tasks for Detekt lint checks
+    def configFile = files("$rootDir/config/detekt/detekt.yml")
+    def baselineFile = file("$rootDir/config/detekt/baseline.xml")
+    def analysisDir = file(projectDir)
+    def kotlinFiles = "**/*.kt"
+    def javaFiles = "**/*.java"
+    def resourceFiles = "**/resources/**"
+    def buildFiles = "**/build/**"
+    task detektGenerateProjectBaseline(type: io.gitlab.arturbosch.detekt.DetektCreateBaselineTask) {
+        description = "Overrides current baseline."
+        parallel = true
+        ignoreFailures = false
+        buildUponDefaultConfig = true
+        autoCorrect = false
+        setSource(analysisDir)
+        config.setFrom(configFile)
+        baseline.set(baselineFile)
+        include(kotlinFiles)
+        include(javaFiles)
+        exclude(resourceFiles)
+        exclude(buildFiles)
+    }
+
+    task detektAll(type: io.gitlab.arturbosch.detekt.Detekt) {
+        description = "Runs the whole project at once."
+        parallel = true
+        ignoreFailures = false
+        buildUponDefaultConfig = true
+        autoCorrect = false
+        setSource(analysisDir)
+        config.setFrom(configFile)
+        baseline.set(baselineFile)
+        include(kotlinFiles)
+        include(javaFiles)
+        exclude(resourceFiles)
+        exclude(buildFiles)
+        reports {
+            html {
+                enabled = false
+                destination = file("$rootDir/config/detekt/generatedDetekt.html")
+            }
+            xml.enabled = false
+            txt.enabled = false
+            sarif.enabled = false
+        }
     }
 }
 
