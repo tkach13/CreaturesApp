@@ -44,7 +44,7 @@
         android:padding="5dp"
         app:layout_constraintTop_toBottomOf="@id/ivSettings"
         android:drawableEnd="@drawable/ic_baseline_search_24"
-        android:hint="Search characters by name"
+        android:hint="@string/what_do_you_want_to_search"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@id/endGuide"
         app:layout_constraintStart_toStartOf="@id/startGuide"
