@@ -18,12 +18,15 @@ import com.benten.creaturesapp.model.AttributeStore
 import com.benten.creaturesapp.model.AttributeValue
 import com.benten.creaturesapp.model.CreatureAttributes
 import com.benten.creaturesapp.views.avatars.AvatarChoserBottomSheet
+import com.google.firebase.database.FirebaseDatabase
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class AddCreatureFragment : Fragment(), AvatarChooser {
     private var _binding: FragmentAddCreatureBinding? = null
     private val binding get() = _binding!!
+
 
 
     private var chosenAvatar = -1
