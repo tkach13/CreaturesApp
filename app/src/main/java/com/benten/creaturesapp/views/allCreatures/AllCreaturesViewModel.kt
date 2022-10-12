@@ -13,8 +13,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AllCreaturesViewModel @Inject constructor(
-    private val creaturesRepository: CreaturesRepository,
-    private val userRepository: UserRepository
+      creaturesRepository: CreaturesRepository,
+      userRepository: UserRepository
 ) :
     ViewModel() {
 
@@ -34,19 +34,9 @@ class AllCreaturesViewModel @Inject constructor(
 
         }
     }
-
-
-    fun onSearchRequested(query: String) {
-
-        viewModelScope.launch {
-
-        }
-    }
-
     fun onPlusClicked() {
         viewModelScope.launch {
             _addClicked.emit(true)
         }
     }
-
 }

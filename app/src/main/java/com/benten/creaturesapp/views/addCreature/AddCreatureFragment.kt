@@ -28,11 +28,9 @@ class AddCreatureFragment : Fragment(), AvatarChooser {
     private val binding get() = _binding!!
 
 
-
     private var chosenAvatar = -1
 
     private val viewModel by viewModels<AddCreatureViewModel>()
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -94,11 +92,9 @@ class AddCreatureFragment : Fragment(), AvatarChooser {
                 view: View?,
                 position: Int,
                 id: Long
-            ) {
+            ) {}
 
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
+            override fun onNothingSelected(parent: AdapterView<*>?) = Unit
         }
         binding.strength.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
