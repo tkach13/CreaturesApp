@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.util.Pair as UtilPair
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -17,6 +18,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.benten.creaturesapp.BuildConfig
 import com.benten.creaturesapp.databinding.FragmentAllCreaturesBinding
 
 import com.benten.creaturesapp.views.addCreature.data.AddCreatureDataModel
@@ -107,6 +109,9 @@ class AllCreaturesFragment : Fragment() {
         binding.fabAddButton.setOnClickListener {
             goToAddCreature(null)
         }
+        binding.fabAddButton.isVisible = isAppPaid()
+
+
 
     }
 
@@ -126,5 +131,10 @@ class AllCreaturesFragment : Fragment() {
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+    }
+    companion object {
+        fun isAppPaid():Boolean {
+            return BuildConfig.FLAVOR == "paid"
+        }
     }
 }
